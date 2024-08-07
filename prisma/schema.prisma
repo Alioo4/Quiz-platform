@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  fullname  String  @db.VarChar(255)
+  username  String  @db.VarChar(255)
+  password  String  @db.VarChar(255)
+  email     String  @db.VarChar(255) @unique
+  isAdmin   Boolean @default(false)
+  isActive  Boolean @default(true)
+  ball      Int?    @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  commet Commet[]
+
+  @@id([id])
+  @@map("users")
+}
+
+model Category {
+  id        String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  title     String @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  type Type[]
+
+  @@id([id])
+  @@map("category")
+}
+
+model Type {
+  id         String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  title      String @db.VarChar(255)
+  count      Int?   @default(0)
+  categoryId String @map("category_id") @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  quiz Quiz[]
+
+  @@id([id])
+  @@map("type")
+}
+
+model Quiz {
+  id        String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  quiz     String @db.VarChar(255)
+  A         String @db.VarChar(255)
+  B         String @db.VarChar(255)
+  C         String @db.VarChar(255)
+  D         String @db.VarChar(255)
+  typeId    String @map("type_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  check Check[]
+
+  type Type @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([id])
+  @@map("quiz")
+}
+
+model Check{
+  id        String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  solution  String @db.VarChar(255)
+  quizId    String @map("quiz_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([id])
+  @@map("check")
+}
+
+model Commet {
+  id           String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  quizTitle    String @map("quiz_title")
+  userId       String @map("user_id") @db.Uuid    
+  description  String @db.Text
+
+  user Users   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([id])
+  @@map("commet")
+}
