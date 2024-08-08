@@ -3,7 +3,7 @@ const Joi = require("joi")
 
 const create = async(req, res, next) => {
     try {
-        const { quiz, A, B, C, D, typeId } = req.body
+        const { quiz, A, B, C, D, answer, typeId } = req.body
 
         const schema = Joi.object({
             quiz: Joi.string().min(5).required(),
@@ -11,10 +11,11 @@ const create = async(req, res, next) => {
             B: Joi.string().required(),
             C: Joi.string().required(),
             D: Joi.string().required(),
+            answer: Joi.string().required(),
             typeId: Joi.string().min(5).required(),
           });
       
-          const { error } = schema.validate({ quiz, A, B, C, D, typeId });
+          const { error } = schema.validate({ quiz, A, B, C, D, answer, typeId });
           if (error) {
             return res.status(400).json({ message: error.details[0].message });
         }

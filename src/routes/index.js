@@ -4,6 +4,5 @@ const categoryRoute = require('../routes/category-route');
 const typeRoute = require('../routes/type-route');
 const quizRoute = require('../routes/quiz-route');
 const commentRoute = require('../routes/comment-route');
-const answerRoute = require('../routes/check-route')
 
-module.exports = [authRoute, adminRoute, categoryRoute, typeRoute, quizRoute, commentRoute, answerRoute];
+module.exports = [authRoute, adminRoute, categoryRoute, typeRoute, quizRoute, commentRoute];
