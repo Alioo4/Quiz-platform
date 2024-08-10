@@ -26,6 +26,7 @@ const create = async(req, res, next) => {
             B, 
             C, 
             D, 
+            answer,
             typeId
         }});
 
@@ -49,7 +50,7 @@ const change = async(req, res, next) => {
     try {
         const {id} = req.params;
         
-        const { quiz, A, B, C, D, typeId } = req.body
+        const { quiz, A, B, C, D, answer, typeId } = req.body
 
         const findId = await prisma.quiz.findFirst({where: {id}})
 
@@ -62,6 +63,7 @@ const change = async(req, res, next) => {
             B, 
             C, 
             D, 
+            answer,
             typeId
         }});
 
