@@ -59,7 +59,7 @@ const changeUser = async (req, res, next) => {
             email: Joi.string().min(5).required(),
         });
 
-        const findId = await prisma.users.findFirst({where: {id}});
+        const findId = await prisma.users.findUnique({where: {id}});
 
         if(!findId)
             return res.status(400).json({message: "This user not found!!!"});
@@ -72,6 +72,8 @@ const changeUser = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         await prisma.users.update({where: {id}, data: {fullname, username, password: hashedPassword, email}})
+
+        res.status(200).json({message: 'Success'})
     } catch (error) {
         next(error)
     }

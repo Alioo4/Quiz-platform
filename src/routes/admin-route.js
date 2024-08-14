@@ -8,6 +8,6 @@ const router = Router();
 
 router.post('/admin/login', login);
 router.get('/admin/users', getUsers);
-router.put('/admin/change', changeUser);
+router.put('/admin/change/:id', changeUser);
 
 module.exports = router;
