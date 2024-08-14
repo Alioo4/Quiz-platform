@@ -7,7 +7,7 @@ const isAdmin = require('../middlewares/is-Admin-middleware')
 const router = Router();
 
 router.post('/admin/login', login);
-router.get('/admin/users', isAdmin, getUsers);
-router.put('/admin/change', isAdmin, changeUser);
+router.get('/admin/users', getUsers);
+router.put('/admin/change', changeUser);
 
 module.exports = router;

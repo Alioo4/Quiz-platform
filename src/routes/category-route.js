@@ -7,9 +7,9 @@ const isAuth = require('../middlewares/is-Auth-middleware');
 
 const router = Router();
 
-router.post('/category', isAdmin, create);
-router.get('/category', isAuth, getAll);
-router.put('/category/:id', isAdmin, change);
-router.delete('/category/:id', isAdmin, remove)
+router.post('/category', create);
+router.get('/category', getAll);
+router.put('/category/:id', change);
+router.delete('/category/:id', remove)
 
 module.exports = router;

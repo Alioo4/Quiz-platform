@@ -19,7 +19,7 @@ const register = async (req, res, next) => {
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
-
+    
     const existingUser = await prisma.users.findUnique({ where: { email } });
 
     if (existingUser) {
@@ -60,6 +60,9 @@ const login = async (req, res, next) => {
     }
 
     const existingUser = await prisma.users.findUnique({ where: { email } });
+    // const existingUser = await prisma.users.findUnique({ where: { email } });
+    console.log(existingUser);
+    
     if (!existingUser) {
       return res.status(401).json({ message: "Email or password incorrect!!!" });
     }
