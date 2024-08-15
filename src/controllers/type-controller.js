@@ -30,7 +30,9 @@ const create = async(req, res, next) => {
 
 const getAll = async(req, res, next) => {
     try {
-        const allType = await prisma.type.findMany();
+        const { id } = req.params
+
+        const allType = await prisma.type.findMany({where: {categoryId: id}});
 
         res.status(201).json({message: "Success", data: allType});
     } catch (error) {

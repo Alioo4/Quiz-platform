@@ -8,7 +8,7 @@ const isAuth = require('../middlewares/is-Auth-middleware');
 const router = Router();
 
 router.post('/quiz', create);
-router.get('/quiz', getAll);
+router.get('/quiz/:id', getAll);
 router.put('/quiz/:id', change);
 router.delete('/quiz/:id', remove)
 

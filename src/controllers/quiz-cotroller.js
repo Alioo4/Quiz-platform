@@ -38,7 +38,9 @@ const create = async(req, res, next) => {
 
 const getAll = async(req, res, next) => {
     try {
-        const allQuiz = await prisma.quiz.findMany();
+        const {id} = req.params;
+
+        const allQuiz = await prisma.quiz.findMany({where: {typeId: id}});
 
         res.status(201).json({message: "Success", data: allQuiz});
     } catch (error) {
